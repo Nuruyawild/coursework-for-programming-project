@@ -2,6 +2,7 @@
 #include <stdlib.h>//其中包含system函数
 #include <string.h>//定义字符数组
 #include "book_management.h"
+#include "User_Interface.h"
 
 #define LEN sizeof(struct _Book)//有关图书信息的结构体
 #define LEN1 sizeof(struct reader)//有关读者信息的结构体
@@ -18,9 +19,9 @@ struct reader//读者借阅信息
 
 
 
-void ManagementMenu();//显示图书信息菜单
-void Borrow_And_Return_Menu();//显示借阅信息菜单
-void Login_Menu();//显示登录菜单
+
+
+
 void Management_Main();//图书菜单功能
 void Search_For_Books_Main();//查询图书菜单 
 void Display_Books_For_Librarian();//管理员浏览图书
@@ -37,30 +38,10 @@ void Create_New_Account();//创建账号密码
 void Login_Main();//登录界面函数
 
 char user[20]={'\0'};//界面显示用户名
-char title;
-char author;
-int year;
 int a=1;//存储书的最终ID
 
 
 
-
-
-
-
-
-void ManagementMenu() //图书馆信息菜单
-{
-printf("\n(logged in as: %s)\n",user);
-printf("Please choose an option:\n");
-printf("1)Add a book\n");
-printf("2)Remove a book\n");
-printf("3)Search for books\n");
-printf("4)Display all books\n");
-printf("5)Log out\n");
-printf(" Option: ");
-return ;
-}
 
 
 
@@ -294,17 +275,13 @@ int remove_book(Book book)//删除图书
    
 }
 
-void findbymenu()//目录系统 
-{
-	printf("\n1)Find book by title\n");
-	printf("2)Find book by author\n");
-	printf("3)Find book by year\n");
-	printf("4)Return to previous menu\n");
-	return ;
- } 
+
  
 void funcoffindbymenu()
 {
+	char title;
+    char author;
+    int year;
 	BookArray find_book_by_title (const char *title);
 	BookArray find_book_by_author (const char *author);
 	BookArray find_book_by_year (unsigned int year);
@@ -622,17 +599,7 @@ void Display_Books_For_Users()//用户浏览图书
         Borrow_And_Return_Main();
 }
 	
-void Borrow_And_Return_Menu()//显示借书菜单
-{
-	printf("\n(logged in as: %s)\n",user); 
-	printf("1)Borrow a book\n");
-	printf("2)Return a book\n");
-	printf("3)Search for books\n");
-	printf("4)Display all books\n");
-    printf("5)Log out\n");
-	printf(" Option: ");
-	return ;
-}
+
 
 
 void Borrow_And_Return_Main()//借阅系统函数
@@ -827,7 +794,7 @@ void Return_Books ()//还书函数
 	 tchuban[20]={'\0'},ttname[20]={'\0'},ttnum1[20]={'\0'};
 	 int n=0,k=0,t=0,flag=0;
 	 char ttitle[20]={'\0'},tuser[20]={'\0'};
-	 char hitkey=0;
+
 	 
      {
  	 if ((fp=fopen("reader.txt","r"))==NULL)//不存在读者文件，则输出不能还书
@@ -1002,11 +969,7 @@ void Display_Borrow_Books()//显示借书情况函数
 
 
 
-void Login_Menu()//显示登录菜单
-{
-printf("\nPlease choose an option:\n1) Register an account\n2) Login\n3) Search for books\n4) Display all books\n5) Quit\nOption: ");
-return ;
-}
+
 
 
 void Login_Main()//登录功能函数
@@ -1043,45 +1006,6 @@ void Login_Main()//登录功能函数
   }
 }
 
-
-int match(char m[20],char a[20])//匹配数据库中的账号密码
-{
-	FILE*fp;
-	int n=0,i=0;
-	char zhanghao[20];
-	char password[20];
-
-	if ((fp=fopen("Login.txt","r"))==NULL)//不存在读者文件
-	  {
-          
-		 printf("\nPlease register an account!");
-	 	 
-		Login_Main();
-	
-      }
-
-
-        for(;!feof(fp);)
-      {
-        fscanf(fp,"%s %s",&zhanghao,password);
-        if((strcmp(m,"librarian")==0)&&(strcmp(a,"librarian")==0))
-		{
-			return 2;
-		}
-        if(strcmp(m,zhanghao)==0)
-        {
-        	if(strcmp(a,password)==0)
-			return 1;
-			else
-			{
-			return -1;
-		   }
-	    }
-	    
-	    
-	  }
-	  return 0;
- }
 
 
 void Create_New_Account()//新建账户密码
